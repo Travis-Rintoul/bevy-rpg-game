@@ -1,0 +1,51 @@
+{
+  "1": {
+    "name": "Fists",
+    "type": 1,
+    "damage": 5,
+    "durability": 100,
+    "description": "Unarmed combat, basic and simple."
+  },
+  "2": {
+    "name": "Short Sword",
+    "type": 2,
+    "damage": 15,
+    "durability": 150,
+    "description": "A basic melee weapon, fast and effective in close combat."
+  },
+  "3": {
+    "name": "Pistol",
+    "type": 3,
+    "damage": 25,
+    "durability": 50,
+    "description": "A small handgun, ideal for quick, medium-range combat."
+  },
+  "4": {
+    "name": "Plasma Rifle",
+    "type": 4,
+    "damage": 40,
+    "durability": 75,
+    "description": "An energy-based weapon that deals high damage at long range."
+  },
+  "5": {
+    "name": "Longbow",
+    "type": 5,
+    "damage": 20,
+    "durability": 100,
+    "description": "A ranged weapon that fires arrows, effective at long distances."
+  },
+  "6": {
+    "name": "Throwing Knife",
+    "type": 6,
+    "damage": 10,
+    "durability": 40,
+    "description": "A throwable weapon, precise and deadly at close range."
+  },
+  "7": {
+    "name": "Grenade",
+    "type": 7,
+    "damage": 50,
+    "durability": 1,
+    "description": "Explosive device, high damage but single-use."
+  }
+}
