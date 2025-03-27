@@ -1,0 +1,56 @@
+{
+  "1": {
+    "name": "Salvaged Leather Armor",
+    "type": "Armor",
+    "defense": 8,
+    "durability": 60,
+    "weight": 12,
+    "material": "Salvaged Leather",
+    "description": "A patchwork armor made from salvaged leather scraps, providing basic protection against both the environment and hostile encounters."
+  },
+  "2": {
+    "name": "Riot Shield Suit",
+    "type": "Armor",
+    "defense": 20,
+    "durability": 100,
+    "weight": 25,
+    "material": "Reinforced Plastic & Metal",
+    "description": "A bulky suit made from scavenged riot shields and reinforced plastic, offering high defense against physical and energy attacks but limiting mobility."
+  },
+  "3": {
+    "name": "Tactical Hazmat Suit",
+    "type": "Armor",
+    "defense": 15,
+    "durability": 120,
+    "weight": 30,
+    "material": "Kevlar & Radiation-Resistant Fabric",
+    "description": "A protective suit designed for hazardous environments, offering moderate defense against radiation, toxic gases, and physical attacks."
+  },
+  "4": {
+    "name": "Scrap Metal Armor",
+    "type": "Armor",
+    "defense": 30,
+    "durability": 200,
+    "weight": 40,
+    "material": "Scavenged Steel & Scrap Metal",
+    "description": "A heavy, makeshift armor pieced together from scraps of metal. Extremely durable but very heavy, limiting speed and stamina."
+  },
+  "5": {
+    "name": "Energy-Resistant Combat Suit",
+    "type": "Armor",
+    "defense": 25,
+    "durability": 180,
+    "weight": 35,
+    "material": "Reinforced Nano-Weave",
+    "description": "A futuristic combat suit with energy resistance, designed to deflect energy weapons. Provides high defense but requires constant power."
+  },
+  "6": {
+    "name": "Wasteland Raider Armor",
+    "type": "Armor",
+    "defense": 12,
+    "durability": 80,
+    "weight": 18,
+    "material": "Hybrid Leather & Metal Plates",
+    "description": "Rough, scavenged armor worn by raiders in the wasteland. Made from a mix of leather and metal plates, offering good protection without sacrificing too much agility."
+  }
+}
