@@ -1,6 +1,6 @@
 use bevy::app::{App, Plugin, Update};
 
-use crate::systems::actor::actor_event_handler::{attack_event_listener, move_event_listener};
+use crate::systems::actor::{actor_attack::attack_event_listener, actor_move::move_event_listener};
 
 pub struct ActorPlugin;
 
