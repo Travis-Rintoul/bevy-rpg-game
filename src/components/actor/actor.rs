@@ -9,14 +9,14 @@ use super::{
 
 #[derive(Component, Clone, Debug)]
 pub struct Actor {
-    name: String,
-    base_health: i32,
-    stats: ActorStats,
-    skills: ActorSkills,
-    perks: ActorPerks,
-    abilities: ActorAbilities,
-    weapon: Option<Weapon>,
-    armor: Option<Armor>,
+    pub name: String,
+    pub base_health: i32,
+    pub stats: ActorStats,
+    pub skills: ActorSkills,
+    pub perks: ActorPerks,
+    pub abilities: ActorAbilities,
+    pub weapon: Option<Weapon>,
+    pub armor: Option<Armor>,
 }
 
 impl Default for Actor {
