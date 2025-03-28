@@ -1,4 +1,4 @@
 use bevy::prelude::Component;
 
-#[derive(Component, Default)]
+#[derive(Component, Default, Clone, Debug)]
 pub struct ActorStats;

@@ -1,6 +1,6 @@
 use bevy::prelude::Component;
 
-#[derive(Component)]
+#[derive(Component, Clone, Debug)]
 pub struct Armor;
 
 impl Armor {

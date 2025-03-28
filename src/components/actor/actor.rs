@@ -7,7 +7,7 @@ use super::{
     actor_stats::ActorStats,
 };
 
-#[derive(Component)]
+#[derive(Component, Clone, Debug)]
 pub struct Actor {
     name: String,
     base_health: i32,
@@ -19,10 +19,25 @@ pub struct Actor {
     armor: Option<Armor>,
 }
 
+impl Default for Actor {
+    fn default() -> Self {
+        Actor {
+            name: String::from(""),
+            base_health: 0,
+            stats: ActorStats {},
+            skills: ActorSkills {},
+            perks: ActorPerks {},
+            abilities: ActorAbilities {},
+            weapon: None,
+            armor: None,
+        }
+    }
+}
+
 impl Actor {
     pub fn new(name: String) -> Self {
         Actor {
-            name: name,
+            name: String::from(name),
             base_health: 0,
             stats: ActorStats {},
             skills: ActorSkills {},

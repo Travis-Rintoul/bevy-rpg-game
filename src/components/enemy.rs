@@ -1,6 +1,4 @@
-use bevy::{app::Plugin, prelude::Component};
-
-use crate::models::structs::enemy_definition::EnemyDefinition;
+use bevy::prelude::Component;
 
 #[derive(Component)]
 pub struct Enemy;
