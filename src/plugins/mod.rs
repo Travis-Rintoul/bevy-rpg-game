@@ -6,3 +6,4 @@ pub mod player_plugin;
 pub mod scene_manager_plugin;
 pub mod scenes;
 pub mod state_manager_plugin;
+pub mod data_cache_plugin;
