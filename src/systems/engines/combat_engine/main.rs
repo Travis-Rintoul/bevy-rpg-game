@@ -4,16 +4,16 @@ use crate::components::actor::actor::Actor;
 
 use std::any::TypeId;
 
-use super::{context::CombateEngineContext, models::engine_hook::EngineHook, runner::CombatEngineRunner};
+use super::{context::CombatEngineContext, models::engine_hook::EngineHook, runner::CombatEngineRunner};
 
 pub struct CombatEngine {
-    pub ctx: CombateEngineContext,
+    pub ctx: CombatEngineContext,
 }
 
 impl CombatEngine {
     pub fn new() -> Self {
         CombatEngine {
-            ctx: CombateEngineContext {
+            ctx: CombatEngineContext {
                 listeners: HashMap::new(),
                 attacker: None,
                 defenders: HashMap::new(),

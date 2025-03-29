@@ -7,15 +7,15 @@ use super::models::engine_hook::EngineHook;
 
 // pub type CombatEngineListener<T> = Box<dyn Fn(&T)>;
 
-pub struct CombateEngineContext {
+pub struct CombatEngineContext {
     pub listeners: HashMap<TypeId, Vec<Box<dyn Fn(&dyn EngineHook)>>>,
     pub attacker: Option<(Entity, Actor)>,
     pub defenders: HashMap<Entity, Actor>,
 }
 
-impl CombateEngineContext {
+impl CombatEngineContext {
     pub fn new(&self) -> Self {
-        CombateEngineContext {
+        CombatEngineContext {
             listeners: HashMap::default(),
             attacker: None,
             defenders: HashMap::default(),
