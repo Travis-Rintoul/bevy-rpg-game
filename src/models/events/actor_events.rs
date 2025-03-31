@@ -17,8 +17,15 @@ pub struct ActorAttackEvent {
 
 #[derive(Event, Debug, Clone)]
 pub struct ActorHitEvent {
-    pub(crate) prev_event: ActorAttackEvent,
-    pub(crate) dealt: f32, 
+    pub(crate) attacker: Entity, 
+    pub(crate) defender: Entity,
+    pub(crate) damage_dealt: i32, 
+}
+
+#[derive(Event, Debug, Clone)]
+pub struct ActorMissEvent {
+    pub(crate) attacker: Entity, 
+    pub(crate) defender: Entity,
 }
 
 #[derive(Event, Debug, Clone)]
@@ -29,8 +36,8 @@ pub struct ActorItemPickupEvent {
 
 #[derive(Event, Debug, Clone)]
 pub struct ActorDeathEvent {
-    actor: Entity,
-    killed_by: Option<Entity>
+    pub(crate) attacker: Entity, 
+    pub(crate) defender: Entity,
 }
 
 
