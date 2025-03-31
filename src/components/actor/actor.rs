@@ -1,6 +1,6 @@
 use bevy::prelude::Component;
 
-use crate::components::{armor::Armor, weapon::Weapon};
+use crate::components::{armor::Armor, weapon::{Weapon, WeaponClass}};
 
 use super::{
     actor_abilities::ActorAbilities, actor_perks::ActorPerks, actor_skills::ActorSkills,
@@ -22,10 +22,10 @@ pub struct Actor {
 impl Default for Actor {
     fn default() -> Self {
         Actor {
-            name: String::from(""),
-            base_health: 0,
-            stats: ActorStats {},
-            skills: ActorSkills {},
+            name: String::default(),
+            base_health: 100,
+            stats: ActorStats::default(),
+            skills: ActorSkills::default(),
             perks: ActorPerks {},
             abilities: ActorAbilities {},
             weapon: None,
@@ -38,13 +38,28 @@ impl Actor {
     pub fn new(name: String) -> Self {
         Actor {
             name: String::from(name),
-            base_health: 0,
-            stats: ActorStats {},
-            skills: ActorSkills {},
+            base_health: 100,
+            stats: ActorStats::default(),
+            skills: ActorSkills::default(),
             perks: ActorPerks {},
             abilities: ActorAbilities {},
             weapon: None,
             armor: None,
+        }
+    }
+
+    pub fn weapon_proficiency(&self) -> i32 {
+        if let Some(weapon) = &self.weapon {
+            match weapon.class {
+                WeaponClass::Gun => self.skills.gun_prof,
+                WeaponClass::Bow => self.skills.bow_prof,
+                WeaponClass::Melee => self.skills.melee_prof,
+                WeaponClass::Thrown => self.skills.thrown_prof,
+                WeaponClass::Unarmed => self.skills.unarmed_prof,
+            }
+        } else {
+            // if no weapon is selected the actor is considered unarmed, using their fists
+            self.skills.unarmed_prof
         }
     }
 }
