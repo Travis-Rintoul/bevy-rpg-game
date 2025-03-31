@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::components::{actor::actor::Actor, player::Player};
+use crate::components::{actor::actor::Actor, health::Health, player::Player};
 
 pub fn spawn_player(
     spawn_point: Vec3,
@@ -10,13 +10,16 @@ pub fn spawn_player(
 ) -> Entity {
 
     let player = Player::new();
+    let actor = Actor::new(player.name());
+    let health = Health(actor.base_health);
 
     commands
         .spawn((
             Mesh3d(meshes.add(Cuboid::default())),
             MeshMaterial3d(materials.add(Color::srgb(0.8, 0.8, 0.8))),
             Transform::from_xyz(spawn_point.x, spawn_point.y, spawn_point.z),
-            Actor::new(player.name()),
+            actor,
+            health,
             player,
         ))
         .id()
