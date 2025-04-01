@@ -43,3 +43,9 @@ pub struct ActorDeathEvent {
 
 #[derive(Event, Debug, Clone)]
 pub struct ActorSpawnEvent;
+
+#[derive(Event, Debug, Clone)]
+pub struct ActorDialogInitiatedEvent {
+    pub(crate) initiator: Entity,
+    pub(crate) recipient: Entity
+}

@@ -1,10 +1,14 @@
 use bevy::prelude::*;
 
-use crate::{
-    models::enums::player_movement_status::PlayerMovementStatus,
-    systems::{
-        camera::camera_movement::camera_zoom_system,
-        player::player_movement::player_raycast_handler,
+use crate::systems::{
+    camera::camera_movement::camera_zoom_system,
+    player::{
+        models::{
+            player_click_debounce::PlayerLastClick, player_movement_status::PlayerMovementStatus,
+            player_state::PlayerState,
+        },
+        player_dialog::player_dialog_event_listener,
+        player_primary_listener::player_primary_listener,
     },
 };
 
@@ -13,17 +17,22 @@ pub struct PlayerPlugin;
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut App) {
         app.insert_state(PlayerMovementStatus::Enabled)
+            .insert_state(PlayerState::Exploring)
+            .insert_resource(PlayerLastClick(0.0))
+            .add_systems(Update, player_primary_listener)
             .add_systems(
                 Update,
-                player_raycast_handler.run_if(in_state(PlayerMovementStatus::Enabled)),
+                player_primary_listener.run_if(in_state(PlayerMovementStatus::Enabled)),
             )
-            // .add_systems(
-            //     Update,
-            //     player_event_listener.run_if(in_state(PlayerMovementStatus::Enabled)),
-            // )
             .add_systems(
                 Update,
-                camera_zoom_system.run_if(in_state(PlayerMovementStatus::Enabled)),
-            );
+                camera_zoom_system
+                    .run_if(in_state(PlayerMovementStatus::Enabled))
+                    .run_if(|state: Res<State<PlayerState>>| {
+                        state.get() == &PlayerState::Exploring
+                            || state.get() == &PlayerState::InCombat
+                    }),
+            )
+            .add_systems(Update, player_dialog_event_listener);
     }
 }
