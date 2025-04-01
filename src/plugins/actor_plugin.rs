@@ -7,7 +7,7 @@ use crate::{
     systems::actor::{
         actor_attack::attack_event_listener, actor_death::death_event_listener,
         actor_hit::hit_event_listener, actor_miss::miss_event_listener,
-        actor_move::move_event_listener,
+        actor_move::{move_event_listener, perform_move_event},
     },
 };
 
@@ -21,6 +21,7 @@ impl Plugin for ActorPlugin {
             .add_event::<ActorHitEvent>()
             .add_event::<ActorDeathEvent>()
             .add_systems(Update, move_event_listener)
+            .add_systems(Update, perform_move_event)
             .add_systems(Update, attack_event_listener)
             .add_systems(Update, hit_event_listener)
             .add_systems(Update, miss_event_listener)
