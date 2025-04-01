@@ -16,10 +16,18 @@ pub fn hit_event_listener(
             ],
         ) = query.get_many_mut([event.attacker, event.defender])
         {
-            println!(
-                "{} has attacked {} dealing {} damage",
-                attacker.name, defender.name, event.damage_dealt
-            );
+            if event.is_crit {
+                println!(
+                    "{} has landed a critical hit on {} dealing {} damage",
+                    attacker.name, defender.name, event.damage_dealt
+                );
+            } else {
+                println!(
+                    "{} has landed a hit on {} dealing {} damage",
+                    attacker.name, defender.name, event.damage_dealt
+                );
+            }
+            
             health.0 -= event.damage_dealt; // Corrected line
         } else {
             println!("Error: Failed to find entities in query.");

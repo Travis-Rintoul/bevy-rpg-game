@@ -20,6 +20,7 @@ pub struct ActorHitEvent {
     pub(crate) attacker: Entity, 
     pub(crate) defender: Entity,
     pub(crate) damage_dealt: i32, 
+    pub(crate) is_crit: bool
 }
 
 #[derive(Event, Debug, Clone)]
@@ -39,7 +40,6 @@ pub struct ActorDeathEvent {
     pub(crate) attacker: Entity, 
     pub(crate) defender: Entity,
 }
-
 
 #[derive(Event, Debug, Clone)]
 pub struct ActorSpawnEvent;

@@ -1,17 +1,14 @@
-use bevy::{
-    ecs::{
+use bevy::{ecs::{
         entity::Entity,
         event::{EventReader, EventWriter},
-        system::{ParamSet, Query},
-    },
-    utils::tracing::event,
-};
+        system::Query,
+    }, utils::tracing::dispatcher};
 
 use crate::{
     components::{actor::actor::Actor, health::Health},
     models::events::actor_events::{
         ActorAttackEvent, ActorDeathEvent, ActorHitEvent, ActorMissEvent,
-    }, systems::chance::{calculate::calculate_damage_chance, roll::roll_hit_chance},
+    }, systems::chance::{calculate::calculate_damage_chance, roll::{roll_crit_chance, roll_hit_chance}},
 };
 
 pub fn attack_event_listener(
@@ -30,12 +27,20 @@ pub fn attack_event_listener(
         ) = query.get_many([event.attacker, event.defender])
         {
             if roll_hit_chance(attacker, defender) {
-                let damage = calculate_damage_chance();
+
+                let is_crit = roll_crit_chance(attacker);
+                let mut damage = calculate_damage_chance();
+
+                if is_crit {
+                    damage = (damage as f32 * 1.5) as i32;
+                }
+
                 if health.0 - damage > 0 {
                     hit_event_writer.send(ActorHitEvent {
                         attacker: attacker_entity,
                         defender: defender_enttiy,
                         damage_dealt: damage,
+                        is_crit
                     });
                 } else {
                     death_event_writer.send(ActorDeathEvent {
