@@ -4,7 +4,6 @@ use bevy::prelude::Component;
 pub struct Enemy;
 
 impl Enemy {
-
     pub fn new() -> Self {
         Enemy {}
     }

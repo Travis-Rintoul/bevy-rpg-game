@@ -4,7 +4,7 @@ use bevy::prelude::*;
 pub struct MainCamera;
 
 impl MainCamera {
-	pub fn new() -> Self {
-		MainCamera {}
-	}
+    pub fn new() -> Self {
+        MainCamera {}
+    }
 }

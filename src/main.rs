@@ -1,12 +1,11 @@
 mod components;
-mod models;
 mod plugins;
-mod scenes;
-mod systems;
+mod utils;
 
-use bevy::prelude::*;
+use bevy::{DefaultPlugins, app::App};
 use plugins::{
-    actor_plugin::ActorPlugin, data_cache_plugin::DataCachePlugin, game_master_plugin::GameMasterPlugin, player_plugin::PlayerPlugin, scene_manager_plugin::SceneManagerPlugin
+    actor_plugin::ActorPlugin, data_cache_plugin::DataCachePlugin, player_plugin::PlayerPlugin,
+    scene_manager_plugin::SceneManagerPlugin,
 };
 
 fn main() {
@@ -16,6 +15,5 @@ fn main() {
         .add_plugins(SceneManagerPlugin)
         .add_plugins(ActorPlugin)
         .add_plugins(PlayerPlugin)
-        .add_plugins(GameMasterPlugin)
         .run();
 }

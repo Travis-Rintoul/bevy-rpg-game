@@ -1,6 +1,9 @@
 use bevy::prelude::Component;
 
-use crate::components::{armor::Armor, weapon::{Weapon, WeaponClass}};
+use crate::components::{
+    armor::Armor,
+    weapon::{Weapon, WeaponClass},
+};
 
 use super::{
     actor_abilities::ActorAbilities, actor_perks::ActorPerks, actor_skills::ActorSkills,

@@ -2,8 +2,7 @@ use bevy::prelude::Component;
 
 #[allow(dead_code)] // TODO: remove dead_code
 #[derive(Component, Clone, Debug, Default)]
-pub struct ActorSkills
-{
+pub struct ActorSkills {
     pub gun_prof: i32,
     pub bow_prof: i32,
     pub melee_prof: i32,
