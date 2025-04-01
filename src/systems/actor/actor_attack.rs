@@ -11,8 +11,7 @@ use crate::{
     components::{actor::actor::Actor, health::Health},
     models::events::actor_events::{
         ActorAttackEvent, ActorDeathEvent, ActorHitEvent, ActorMissEvent,
-    },
-    systems::chance::{calculate::calculate_damage_chance, roll::roll_hit_chance},
+    }, systems::chance::{calculate::calculate_damage_chance, roll::roll_hit_chance},
 };
 
 pub fn attack_event_listener(
