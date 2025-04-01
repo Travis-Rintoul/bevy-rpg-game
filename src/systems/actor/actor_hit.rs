@@ -1,6 +1,6 @@
-use bevy::ecs::{entity::Entity, event::{self, EventReader}, system::Query};
+use bevy::ecs::{entity::Entity, event::EventReader, system::Query};
 
-use crate::{components::{actor::actor::Actor, health::{self, Health}}, models::events::actor_events::ActorHitEvent};
+use crate::{components::{actor::actor::Actor, health::Health}, models::events::actor_events::ActorHitEvent};
 
 pub fn hit_event_listener(
     mut attack_event_reader: EventReader<ActorHitEvent>,

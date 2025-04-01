@@ -19,11 +19,12 @@ impl Plugin for DataCachePlugin {
             .add_systems(
                 Startup,
                 (load_enemy_cache, load_weapon_cache, load_armor_cache),
-            )
-            .add_systems(Startup, debug);
+            );
+            //.add_systems(Startup, debug);
     }
 }
 
+#[allow(dead_code)] // TODO remove dead_code
 pub fn debug(
     cache1: ResMut<EnemyDefinitionCache>,
     cache2: ResMut<WeaponDefinitionCache>,

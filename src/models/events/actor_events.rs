@@ -29,6 +29,7 @@ pub struct ActorMissEvent {
     pub(crate) defender: Entity,
 }
 
+#[allow(dead_code)] // TODO: remove dead_code
 #[derive(Event, Debug, Clone)]
 pub struct ActorItemPickupEvent {
     actor: Entity, 
@@ -41,6 +42,7 @@ pub struct ActorDeathEvent {
     pub(crate) defender: Entity,
 }
 
+#[allow(dead_code)] // TODO: remove dead_code
 #[derive(Event, Debug, Clone)]
 pub struct ActorSpawnEvent;
 

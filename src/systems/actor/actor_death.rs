@@ -1,15 +1,12 @@
 use bevy::ecs::{
         entity::Entity,
-        event::{EventReader, EventWriter},
-        system::{Commands, ParamSet, Query},
+        event::EventReader,
+        system::{Commands, Query},
     };
 
 use crate::{
-    components::{actor::actor::Actor, health::Health},
-    models::events::actor_events::{
-        ActorAttackEvent, ActorDeathEvent, ActorHitEvent, ActorMissEvent,
-    },
-    systems::chance::{calculate::calculate_damage_chance, roll::roll_hit_chance},
+    components::actor::actor::Actor,
+    models::events::actor_events::ActorDeathEvent,
 };
 
 pub fn death_event_listener(
@@ -25,7 +22,7 @@ pub fn death_event_listener(
             ],
         ) = query.get_many([event.attacker, event.defender])
         {
-            for entity in query.iter() {
+            for _ in query.iter() {
                 commands.entity(event.defender).despawn();
                 println!("{} attacked {} killing them", attacker.name, defender.name);
             }

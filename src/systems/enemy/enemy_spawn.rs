@@ -11,7 +11,7 @@ use bevy::{
     transform::components::Transform,
 };
 
-use crate::components::{actor::actor::Actor, enemy::Enemy, health::{self, Health}};
+use crate::components::{actor::actor::Actor, enemy::Enemy, health::Health};
 
 pub fn spawn_enemy(
     position: Vec3,

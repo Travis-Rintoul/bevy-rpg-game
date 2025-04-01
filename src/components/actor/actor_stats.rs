@@ -1,5 +1,6 @@
 use bevy::prelude::Component;
 
+#[allow(dead_code)] // TODO: remove dead_code
 #[derive(Component, Default, Clone, Debug)]
 pub struct ActorStats {
 	pub brawn: i32,

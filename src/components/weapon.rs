@@ -1,6 +1,6 @@
 use bevy::prelude::Component;
 
-
+#[allow(dead_code)] // TODO: remove dead_code
 #[derive(Debug, Clone)]
 pub enum WeaponClass {
     Gun,
@@ -10,6 +10,7 @@ pub enum WeaponClass {
     Thrown,
 }
 
+#[allow(dead_code)] // TODO: remove dead_code
 #[derive(Component, Clone, Debug)]
 pub struct Weapon {
     pub name: String,

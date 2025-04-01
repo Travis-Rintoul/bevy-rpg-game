@@ -1,5 +1,6 @@
 use bevy::prelude::Component;
 
+#[allow(dead_code)] // TODO: remove dead_code
 #[derive(Component, Clone, Debug, Default)]
 pub struct ActorSkills
 {

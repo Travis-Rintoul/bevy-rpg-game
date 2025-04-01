@@ -16,7 +16,7 @@ pub fn roll_hit_chance(attacker: &Actor, target: &Actor) -> bool {
         target.skills.dodge_prof,
         target.stats.fortune,
     );
-    1000 > roll
+    calc > roll
 }
 
 pub fn roll_crit_chance(actor: &Actor) -> bool {

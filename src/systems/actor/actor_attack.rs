@@ -1,8 +1,8 @@
-use bevy::{ecs::{
+use bevy::ecs::{
         entity::Entity,
         event::{EventReader, EventWriter},
         system::Query,
-    }, utils::tracing::dispatcher};
+    };
 
 use crate::{
     components::{actor::actor::Actor, health::Health},

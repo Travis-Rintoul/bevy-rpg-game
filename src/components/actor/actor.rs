@@ -7,6 +7,7 @@ use super::{
     actor_stats::ActorStats,
 };
 
+#[allow(dead_code)] // TODO: remove dead_code
 #[derive(Component, Clone, Debug)]
 pub struct Actor {
     pub name: String,
