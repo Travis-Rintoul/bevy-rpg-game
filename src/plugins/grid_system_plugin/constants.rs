@@ -1,0 +1,1 @@
+pub const HEX_GRID_RADIUS: f64 = 0.5;

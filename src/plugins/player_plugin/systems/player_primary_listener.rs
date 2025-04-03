@@ -18,6 +18,7 @@ use crate::{
     components::{enemy::Enemy, main_camera::MainCamera, player::Player},
     plugins::{
         actor_plugin::events::{ActorAttackEvent, ActorDialogInitiatedEvent, ActorMoveEvent},
+        grid_system_plugin::Hex,
         player_plugin::structs::PlayerLastClick,
     },
 };
@@ -39,6 +40,7 @@ pub fn player_primary_listener(
     mut last_click_time: ResMut<PlayerLastClick>,
     enemy_query: Query<Entity, With<Enemy>>,
     player_query: Query<Entity, With<Player>>,
+    hex_query: Query<Entity, With<Hex>>,
     window_query: Query<&Window, With<PrimaryWindow>>,
     camera_query: Query<(&Camera, &GlobalTransform), With<MainCamera>>,
     mut actor_move_event_writer: EventWriter<ActorMoveEvent>,
@@ -74,6 +76,8 @@ pub fn player_primary_listener(
         if let Some((hit_entity, hit)) = ray_cast.cast_ray(ray, &RayCastSettings::default()).first()
         {
             let is_enemy = enemy_query.get(*hit_entity).is_ok();
+            let is_hex = hex_query.get(*hit_entity).is_ok();
+
             if is_enemy {
                 if right_click {
                     actor_dialog_event_writer.send(ActorDialogInitiatedEvent {
@@ -86,7 +90,7 @@ pub fn player_primary_listener(
                         defender: *hit_entity,
                     });
                 }
-            } else if left_click {
+            } else if is_hex && left_click {
                 actor_move_event_writer.send(ActorMoveEvent {
                     actor: player_entity,
                     position: Vec3::new(hit.point.x, 1.0, hit.point.z),

@@ -2,6 +2,7 @@ use bevy::prelude::States;
 
 #[derive(States, Debug, Clone, PartialEq, Eq, Hash)]
 pub enum GameScene {
+    Sandbox,
     Location1,
     Location2,
 }

@@ -4,3 +4,4 @@ pub mod enemy;
 pub mod main_camera;
 pub mod player;
 pub mod weapon;
+pub mod grid_mappable;
