@@ -1,0 +1,49 @@
+use bevy::{
+    ecs::{
+        event::EventWriter,
+        query::With,
+        system::{Query, Res},
+    },
+    input::{ButtonInput, mouse::MouseButton},
+    picking::mesh_picking::ray_cast::{MeshRayCast, RayCastSettings},
+    render::camera::Camera,
+    transform::components::GlobalTransform,
+    window::{PrimaryWindow, Window},
+};
+
+use crate::{
+    components::main_camera::MainCamera, plugins::user_input_plugin::models::RayCastHitEvent,
+};
+
+pub fn mouse_raycast_emitter(
+    mut ray_cast: MeshRayCast,
+    mouse: Res<ButtonInput<MouseButton>>,
+    window_query: Query<&Window, With<PrimaryWindow>>,
+    camera_query: Query<(&Camera, &GlobalTransform), With<MainCamera>>,
+    mut raycast_hit_event_writer: EventWriter<RayCastHitEvent>,
+) {
+    let Some(window) = window_query.get_single().ok() else {
+        return;
+    };
+
+    let Some((camera, camera_transform)) = camera_query.get_single().ok() else {
+        return;
+    };
+
+    let Some(cursor_position) = window.cursor_position() else {
+        return;
+    };
+
+    let Ok(ray) = camera.viewport_to_world(camera_transform, cursor_position) else {
+        return;
+    };
+
+    if let Some((hit_entity, hit)) = ray_cast.cast_ray(ray, &RayCastSettings::default()).first() {
+        raycast_hit_event_writer.send(RayCastHitEvent {
+            hit_entity: *hit_entity,
+            left_click: mouse.pressed(MouseButton::Left),
+            right_click: mouse.pressed(MouseButton::Right),
+            point: hit.point,
+        });
+    }
+}

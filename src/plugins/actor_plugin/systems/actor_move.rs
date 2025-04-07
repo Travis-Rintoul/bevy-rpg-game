@@ -18,7 +18,7 @@ pub fn move_event_listener(mut commands: Commands, mut events: EventReader<Actor
     for event in events.read() {
         commands
             .entity(event.actor)
-            .insert(ActorMoveTarget(event.position));
+            .insert(ActorMoveTarget(event.point));
     }
 }
 

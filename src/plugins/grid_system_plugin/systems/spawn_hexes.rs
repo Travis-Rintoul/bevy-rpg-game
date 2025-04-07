@@ -12,22 +12,23 @@ use bevy::{
     utils::default,
 };
 
-use crate::{
-    components::grid_mappable::{GridMapPoint, GridMappable},
-    plugins::grid_system_plugin::{HEX_GRID_RADIUS, Hex, HexDirection},
+use crate::plugins::grid_system_plugin::{
+    HEX_GRID_RADIUS, HexDirection, TEMP_HEX_GRID_HEIGHT, TEMP_HEX_GRID_WIDTH,
+    components::{HexGrid, HexTile},
+    models::GridMapPoint,
 };
 
 use super::grid::calculate_next_point;
 
 pub fn spawn_hexes(
-    query: Query<&GridMappable>,
+    query: Query<&HexGrid>,
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
     for (grid_map) in query.iter() {
         let material = materials.add(StandardMaterial {
-            base_color: Color::srgb(1.0, 0.0, 0.0), // Red
+            base_color: Color::srgba(1.0, 1.0, 1.0, 0.1),
             ..default()
         });
 
@@ -36,7 +37,7 @@ pub fn spawn_hexes(
         let mut prev_vec: Vec2 = grid_point;
         let mut start_point = Vec2::new(grid_point.x, grid_point.y);
 
-        for i in 0..=27 {
+        for i in 0..=TEMP_HEX_GRID_WIDTH {
             if i > 0 {
                 start_point = calculate_next_point(
                     start_point.x as f64,
@@ -45,7 +46,7 @@ pub fn spawn_hexes(
                 );
             }
 
-            for z in 0..=27 {
+            for z in 0..=TEMP_HEX_GRID_HEIGHT {
                 let position: Vec2;
 
                 if z == 0 {
@@ -65,7 +66,7 @@ pub fn spawn_hexes(
                 }
 
                 commands.spawn((
-                    Hex::new(z, i),
+                    HexTile::new(z, i),
                     Mesh3d(meshes.add(Extrusion::new(
                         RegularPolygon::new(HEX_GRID_RADIUS as f32, 6),
                         0.05,

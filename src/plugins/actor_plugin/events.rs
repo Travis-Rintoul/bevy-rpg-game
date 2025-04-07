@@ -5,12 +5,22 @@ use bevy::prelude::Vec3;
 #[derive(Event, Debug, Clone)]
 pub struct ActorMoveEvent {
     pub(crate) actor: Entity,
-    pub(crate) position: Vec3,
+    pub(crate) point: Vec3,
+}
+
+#[derive(Event, Debug, Clone)]
+pub struct PlayerMoveEvent {
+    pub(crate) point: Vec3,
 }
 
 #[derive(Event, Debug, Clone)]
 pub struct ActorAttackEvent {
     pub(crate) attacker: Entity,
+    pub(crate) defender: Entity,
+}
+
+#[derive(Event, Debug, Clone)]
+pub struct PlayerAttackEvent {
     pub(crate) defender: Entity,
 }
 
@@ -48,5 +58,10 @@ pub struct ActorSpawnEvent;
 #[derive(Event, Debug, Clone)]
 pub struct ActorDialogInitiatedEvent {
     pub(crate) initiator: Entity,
+    pub(crate) recipient: Entity,
+}
+
+#[derive(Event, Debug, Clone)]
+pub struct PlayerDialogInitiatedEvent {
     pub(crate) recipient: Entity,
 }
