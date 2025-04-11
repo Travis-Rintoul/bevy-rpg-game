@@ -10,7 +10,6 @@ use bevy::{
 
 use crate::plugins::grid_system_plugin::components::HexGrid;
 
-
 pub fn spawn_ground(
     commands: &mut Commands,
     meshes: &mut ResMut<Assets<Mesh>>,
@@ -23,7 +22,7 @@ pub fn spawn_ground(
     // Plane
     commands.spawn((
         Mesh3d(meshes.add(Plane3d::default().mesh().size(width as f32, height as f32))),
-        //MeshMaterial3d(materials.add(Color::srgb(0.3, 0.5, 0.3))),
+        MeshMaterial3d(materials.add(Color::srgb(0.3, 0.5, 0.3))),
         HexGrid::new(width, height),
     ));
 }

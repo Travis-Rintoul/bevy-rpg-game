@@ -1,21 +1,12 @@
 use bevy::{
-    asset::Assets,
-    color::Color,
-    ecs::system::{Commands, Query, ResMut},
-    math::{
-        Quat, Vec2,
-        primitives::{Extrusion, RegularPolygon},
-    },
-    pbr::{MeshMaterial3d, StandardMaterial},
-    render::mesh::{Mesh, Mesh3d},
-    transform::components::Transform,
-    utils::default,
+    ecs::{event::EventWriter, observer::Trigger, system::{Commands, Query, Res, ResMut}}, input::{keyboard::KeyCode, ButtonInput}, math::{Quat, Vec2}, pbr::MeshMaterial3d, picking::events::{Click, Out, Over, Pointer}, render::mesh::Mesh3d, transform::components::Transform
 };
 
-use crate::plugins::grid_system_plugin::{
-    HEX_GRID_RADIUS, HexDirection, TEMP_HEX_GRID_HEIGHT, TEMP_HEX_GRID_WIDTH,
-    components::{HexGrid, HexTile},
-    models::GridMapPoint,
+use crate::{
+    plugins::{actor_plugin::events::PlayerGridMoveEvent, grid_system_plugin::{
+        components::{HexGrid, HexTile}, models::{GridMapPoint, HexTileAssets}, FirstAxialCoord, HexDirection, LastAxialCoord, TEMP_HEX_GRID_HEIGHT, TEMP_HEX_GRID_WIDTH
+    }},
+    utils::material::update_material_on,
 };
 
 use super::grid::calculate_next_point;
@@ -23,15 +14,9 @@ use super::grid::calculate_next_point;
 pub fn spawn_hexes(
     query: Query<&HexGrid>,
     mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
+    hex_tile_assets: Res<HexTileAssets>,
 ) {
     for (grid_map) in query.iter() {
-        let material = materials.add(StandardMaterial {
-            base_color: Color::srgba(1.0, 1.0, 1.0, 0.1),
-            ..default()
-        });
-
         let grid_point = grid_map.point(GridMapPoint::TopLeft);
 
         let mut prev_vec: Vec2 = grid_point;
@@ -65,19 +50,51 @@ pub fn spawn_hexes(
                     );
                 }
 
-                commands.spawn((
-                    HexTile::new(z, i),
-                    Mesh3d(meshes.add(Extrusion::new(
-                        RegularPolygon::new(HEX_GRID_RADIUS as f32, 6),
-                        0.05,
-                    ))),
-                    MeshMaterial3d(material.clone()),
-                    Transform::from_xyz(position.x, 0.0, position.y)
-                        .with_rotation(Quat::from_rotation_x(std::f64::consts::PI as f32 / 2.0)),
-                ));
+                commands
+                    .spawn((
+                        HexTile::new(z, i),
+                        Mesh3d(hex_tile_assets.mesh.clone()),
+                        MeshMaterial3d(hex_tile_assets.material_standard_hex.clone()),
+                        Transform::from_xyz(position.x, 0.0, position.y).with_rotation(
+                            Quat::from_rotation_x(std::f64::consts::PI as f32 / 2.0),
+                        ),
+                    ))
+                    .observe(update_material_on::<Pointer<Over>>(
+                        hex_tile_assets.material_focused_hex.clone(),
+                    ))
+                    .observe(update_material_on::<Pointer<Out>>(
+                        hex_tile_assets.material_standard_hex.clone(),
+                    ))
+                    .observe(on_hex_click);
 
                 prev_vec = position.clone();
             }
         }
     }
+}
+
+fn on_hex_click(
+    click: Trigger<Pointer<Click>>,
+    keyboard: Res<ButtonInput<KeyCode>>,
+    query: Query<&HexTile>,
+    mut first: ResMut<FirstAxialCoord>,
+    mut last: ResMut<LastAxialCoord>,
+    mut player_move_event_writer: EventWriter<PlayerGridMoveEvent>,
+) {
+    if keyboard.pressed(KeyCode::ControlLeft) {
+        println!("First set");
+        first.0 = Some(click.entity());
+    } else if  keyboard.pressed(KeyCode::ShiftLeft) {
+        println!("second set");
+        last.0 = Some(click.entity());
+    } else if keyboard.pressed(KeyCode::AltLeft) {
+        if let Ok(hex) = query.get(click.entity()) {
+            println!("{:?}", hex.coord);
+        }
+    } else {
+        player_move_event_writer.send(PlayerGridMoveEvent {
+            selected_grid: click.entity()
+        });
+    }
+
 }

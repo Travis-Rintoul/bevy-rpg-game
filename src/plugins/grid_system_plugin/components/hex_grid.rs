@@ -1,8 +1,10 @@
 use bevy::{math::Vec2, prelude::Component};
 
-use crate::plugins::grid_system_plugin::{HexDirection, models::GridMapPoint};
+use crate::plugins::grid_system_plugin::{
+    HexDirection,
+    models::{AxialCoord, GridMapPoint},
+};
 
-use super::AxialCoord;
 use std::f64::consts::PI;
 
 #[derive(Component)]

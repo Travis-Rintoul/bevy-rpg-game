@@ -1,16 +1,14 @@
 use bevy::prelude::Component;
 
-pub struct AxialCoord {
-	pub q: i32,
-	pub r: i32,
-}
+use crate::plugins::grid_system_plugin::models::AxialCoord;
+
+
 
 #[derive(Component)]
 pub struct HexTile {
-	coord: AxialCoord,
-	ocupied: bool,
+	pub coord: AxialCoord,
+	pub ocupied: bool,
 }
-
 
 impl HexTile {
 	pub fn new(q: i32, r: i32) -> Self {
