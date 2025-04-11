@@ -14,6 +14,11 @@ pub struct PlayerMoveEvent {
 }
 
 #[derive(Event, Debug, Clone)]
+pub struct PlayerGridMoveEvent {
+    pub(crate) selected_grid: Entity,
+}
+
+#[derive(Event, Debug, Clone)]
 pub struct ActorAttackEvent {
     pub(crate) attacker: Entity,
     pub(crate) defender: Entity,

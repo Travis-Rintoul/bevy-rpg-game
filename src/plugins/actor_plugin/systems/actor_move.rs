@@ -33,7 +33,7 @@ pub fn perform_move_event(
         let direction = (target.0 - transform.translation).normalize_or_zero();
         let distance = transform.translation.distance(target.0);
 
-        if distance > 2.0 {
+        if distance > 0.1 {
             transform.translation += direction * speed * time.delta_secs();
         }
     }
