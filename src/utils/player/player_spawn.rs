@@ -1,8 +1,14 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, tasks::futures_lite::stream::Skip, transform};
 
-use crate::components::{
-    actor::{Actor, ActorHealth},
-    player::Player,
+use crate::{
+    components::player::Player,
+    plugins::{
+        actor_plugin::components::{Actor, ActorHealth},
+        grid_system_plugin::{
+            AxialCoord,
+            components::{HexGrid, HexTile},
+        },
+    },
 };
 
 pub fn spawn_player(
@@ -11,12 +17,15 @@ pub fn spawn_player(
     meshes: &mut ResMut<Assets<Mesh>>,
     materials: &mut ResMut<Assets<StandardMaterial>>,
 ) -> Entity {
+
     let player = Player::new();
     let actor = Actor::new(player.name());
     let health = ActorHealth(actor.base_health);
 
-    commands
-        .spawn((
+    println!("{:?}", spawn_point);
+
+    return commands
+        .spawn(  (
             Mesh3d(meshes.add(Cuboid::default())),
             MeshMaterial3d(materials.add(Color::srgb(0.8, 0.8, 0.8))),
             Transform::from_xyz(spawn_point.x, spawn_point.y, spawn_point.z),
@@ -24,5 +33,5 @@ pub fn spawn_player(
             health,
             player,
         ))
-        .id()
+        .id();
 }

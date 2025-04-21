@@ -1,16 +1,14 @@
 use bevy::{
     ecs::{
-        event::EventReader,
-        query::With,
-        system::{Commands, Query, Res},
+        entity::Entity, event::EventReader, query::With, system::{Commands, Query, Res}
     },
     time::Time,
     transform::components::Transform,
 };
 
-use crate::{
-    components::actor::{Actor, ActorMoveTarget},
-    plugins::actor_plugin::events::ActorMoveEvent,
+use crate::plugins::actor_plugin::{
+    components::{Actor, ActorFreeMovementCommand, ActorHexMovementCommand, ActorMoveTarget},
+    events::ActorMoveEvent,
 };
 
 // Listens for move event to be triggered
@@ -36,5 +34,14 @@ pub fn perform_move_event(
         if distance > 0.1 {
             transform.translation += direction * speed * time.delta_secs();
         }
+    }
+}
+
+pub fn movement_command_handler(
+    mut hex_move_query: Query<(Entity, &mut ActorHexMovementCommand), With<Actor>>,
+    mut free_move_query: Query<(Entity, &mut ActorHexMovementCommand), With<Actor>>,
+) {
+    for (entity, mut movement) in &mut hex_move_query {
+        movement.current_step = 0;
     }
 }

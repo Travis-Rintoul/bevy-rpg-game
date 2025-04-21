@@ -1,8 +1,7 @@
-use bevy::{math::Vec2, prelude::Component};
+use bevy::{ecs::{entity::Entity, query::Has}, math::Vec2, prelude::Component, utils::{default, hashbrown::HashMap}};
 
 use crate::plugins::grid_system_plugin::{
-    HexDirection,
-    models::{AxialCoord, GridMapPoint},
+    models::{AxialCoord, GridMapPoint}, systems::register_hexes, HexDirection
 };
 
 use std::f64::consts::PI;
@@ -11,6 +10,8 @@ use std::f64::consts::PI;
 pub struct HexGrid {
     width: u32,
     height: u32,
+    pub hexes: Vec<AxialCoord>,
+    pub hex_map: HashMap<AxialCoord, Entity>,
 }
 
 impl HexGrid {
@@ -18,12 +19,14 @@ impl HexGrid {
         HexGrid {
             width: width,
             height: height,
+            hexes: register_hexes(),
+            hex_map: HashMap::default(),
         }
     }
 
-    pub fn get_hex_neighbor(hex: &AxialCoord, direction: HexDirection) -> Option<&AxialCoord> {
-        None
-    }
+    // pub fn get_hex_neighbor(hex: &AxialCoord, direction: HexDirection) -> Option<&AxialCoord> {
+    //     None
+    // }
 
     pub fn point(&self, point_type: GridMapPoint) -> Vec2 {
         let x = (self.width / 2) as f32;
@@ -38,6 +41,6 @@ impl HexGrid {
     }
 }
 
-pub fn hex_grid_angle(direction: HexDirection) -> f64 {
-    ((direction as i32) as f64) * PI / 3.0
-}
+// pub fn hex_grid_angle(direction: HexDirection) -> f64 {
+//     ((direction as i32) as f64) * PI / 3.0
+// }

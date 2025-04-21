@@ -5,7 +5,7 @@ use bevy::ecs::{
 };
 
 use crate::{
-    components::actor::{Actor, ActorHealth},
+    plugins::actor_plugin::components::{Actor, ActorHealth},
     utils::chance_calculator::{calculate_damage_chance, roll_crit_chance, roll_hit_chance},
 };
 

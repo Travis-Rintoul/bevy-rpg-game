@@ -25,12 +25,12 @@ pub fn setup(
     setup_lights_and_cameras(&mut commands);
     spawn_ground(&mut commands, &mut meshes, &mut materials);
 
-    spawn_player(
-        scene.player_spawn_position,
-        &mut commands,
-        &mut meshes,
-        &mut materials,
-    );
+    // spawn_player(
+    //     scene.player_spawn_position,
+    //     &mut commands,
+    //     &mut meshes,
+    //     &mut materials,
+    // );
 
     let pos = Vec3::new(5.0, 0.0, 5.0);
 

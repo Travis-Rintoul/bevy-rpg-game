@@ -10,6 +10,14 @@ use bevy::{
 
 use crate::plugins::grid_system_plugin::components::HexGrid;
 
+pub fn spawn_ground_system(
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+) {
+    spawn_ground(&mut commands, &mut meshes, &mut materials);
+}
+
 pub fn spawn_ground(
     commands: &mut Commands,
     meshes: &mut ResMut<Assets<Mesh>>,
@@ -25,4 +33,5 @@ pub fn spawn_ground(
         MeshMaterial3d(materials.add(Color::srgb(0.3, 0.5, 0.3))),
         HexGrid::new(width, height),
     ));
+
 }

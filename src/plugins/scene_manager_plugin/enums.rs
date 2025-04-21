@@ -7,6 +7,13 @@ pub enum GameScene {
     Location2,
 }
 
+#[derive(States, Debug, Clone, PartialEq, Eq, Hash)]
+pub enum GameSceneStatus {
+    Loading,
+    Ready,
+}
+
+
 #[allow(dead_code)] // TODO remove dead_code
 #[derive(States, Debug, Clone, PartialEq, Eq, Hash)]
 pub enum GameState {

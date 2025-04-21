@@ -24,17 +24,17 @@ pub fn setup(
     setup_lights_and_cameras(&mut commands);
     spawn_ground(&mut commands, &mut meshes, &mut materials);
 
-    spawn_player(
-        scene.player_spawn_position,
-        &mut commands,
-        &mut meshes,
-        &mut materials,
-    );
+    // spawn_player(
+    //     scene.player_spawn_position,
+    //     &mut commands,
+    //     &mut meshes,
+    //     &mut materials,
+    // );
 
-    spawn_enemy(
-        scene.player_spawn_position,
-        &mut commands,
-        &mut meshes,
-        &mut materials,
-    );
+    // spawn_enemy(
+    //     scene.player_spawn_position,
+    //     &mut commands,
+    //     &mut meshes,
+    //     &mut materials,
+    // );
 }

@@ -7,9 +7,9 @@ use bevy::{
     state::state::NextState,
 };
 
-use crate::{
-    components::actor::Actor,
-    plugins::{actor_plugin::events::ActorDialogInitiatedEvent, player_plugin::PlayerState},
+use crate::plugins::{
+    actor_plugin::{components::Actor, events::ActorDialogInitiatedEvent},
+    player_plugin::PlayerState,
 };
 
 pub fn player_dialog_event_listener(

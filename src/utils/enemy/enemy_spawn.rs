@@ -11,9 +11,9 @@ use bevy::{
     transform::components::Transform,
 };
 
-use crate::components::{
-    actor::{Actor, ActorHealth},
-    enemy::Enemy,
+use crate::{
+    components::enemy::Enemy,
+    plugins::actor_plugin::components::{Actor, ActorHealth},
 };
 
 #[allow(dead_code)] // TODO: remove dead_code

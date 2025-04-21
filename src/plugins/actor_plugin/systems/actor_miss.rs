@@ -1,6 +1,6 @@
 use bevy::ecs::{entity::Entity, event::EventReader, system::Query};
 
-use crate::components::actor::Actor;
+use crate::plugins::actor_plugin::components::Actor;
 
 use super::events::ActorMissEvent;
 
@@ -9,13 +9,12 @@ pub fn miss_event_listener(
     query: Query<(Entity, &mut Actor)>,
 ) {
     for event in miss_event_reader.read() {
-        if let Ok(
-            [
-                (_, attacker),
-                (_, defender),
-            ],
-        ) = query.get_many([event.attacker, event.defender]) {
-            println!("{} has tried to attack {} but missed", attacker.name, defender.name);
+        if let Ok([(_, attacker), (_, defender)]) = query.get_many([event.attacker, event.defender])
+        {
+            println!(
+                "{} has tried to attack {} but missed",
+                attacker.name, defender.name
+            );
         }
     }
 }

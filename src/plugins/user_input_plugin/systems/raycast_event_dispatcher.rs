@@ -38,30 +38,34 @@ pub fn raycast_event_dispatcher(
 }
 
 pub fn player_move_event_dispatcher(
-    player: Single<Entity, With<Player>>,
+    player_query: Query<Entity, With<Player>>,
     mut player_move_event_reader: EventReader<PlayerMoveEvent>,
     mut actor_move_event_writer: EventWriter<ActorMoveEvent>,
 ) {
     for event in player_move_event_reader.read() {
-        actor_move_event_writer.send(ActorMoveEvent {
-            actor: *player,
-            point: event.point,
-        });
+        for (player) in &player_query {
+            actor_move_event_writer.send(ActorMoveEvent {
+                actor: player,
+                point: event.point,
+            });
+        }
     }
 }
 
 pub fn player_grid_move_event_dispatcher(
-    player: Single<Entity, With<Player>>,
+    player_query: Query<Entity, With<Player>>,
     hex_query: Query<&Transform, With<HexTile>>,
     mut player_move_event_reader: EventReader<PlayerGridMoveEvent>,
     mut actor_move_event_writer: EventWriter<ActorMoveEvent>,
 ) {
     for event in player_move_event_reader.read() {
         if let Ok(transform) = hex_query.get(event.selected_grid) {
-            actor_move_event_writer.send(ActorMoveEvent {
-                actor: *player,
-                point: transform.translation,
-            });
+            for (player) in &player_query {
+                actor_move_event_writer.send(ActorMoveEvent {
+                    actor: player,
+                    point: transform.translation,
+                });
+            }
         }
     }
 }

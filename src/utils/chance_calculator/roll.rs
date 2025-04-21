@@ -1,6 +1,6 @@
 use rand::Rng;
 
-use crate::components::actor::Actor;
+use crate::plugins::actor_plugin::components::Actor;
 
 use super::formula;
 

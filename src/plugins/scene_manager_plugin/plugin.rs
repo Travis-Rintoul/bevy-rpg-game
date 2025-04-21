@@ -8,13 +8,14 @@ use crate::plugins::{
     sandbox_scene_plugin::SandboxScenePlugin,
 };
 
-use super::enums::GameScene;
+use super::enums::{GameScene, GameSceneStatus};
 
 pub struct SceneManagerPlugin;
 
 impl Plugin for SceneManagerPlugin {
     fn build(&self, app: &mut App) {
         app.insert_state(GameScene::Sandbox)
+            .insert_state(GameSceneStatus::Loading)
             .add_plugins(SandboxScenePlugin)
             .add_plugins(Location1ScenePlugin)
             .add_plugins(Location2ScenePlugin);
