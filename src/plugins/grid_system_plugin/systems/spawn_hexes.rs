@@ -1,15 +1,17 @@
 use bevy::{
     ecs::{
-        entity::Entity, event::EventWriter, observer::Trigger, system::{Commands, Query, Res, ResMut, Single}
+        entity::Entity,
+        event::EventWriter,
+        observer::Trigger,
+        system::{Commands, Query, Res, ResMut},
     },
-    input::{keyboard::KeyCode, ButtonInput},
-    log::tracing_subscriber::util::SubscriberInitExt,
+    input::{ButtonInput, keyboard::KeyCode},
     math::{Quat, Vec2},
     pbr::MeshMaterial3d,
     picking::events::{Click, Out, Over, Pointer},
     render::mesh::Mesh3d,
     transform::components::Transform,
-    utils::default,
+    utils::{default, hashbrown::HashMap},
 };
 
 use crate::{
@@ -45,14 +47,13 @@ pub fn spawn_hexes(
     for (mut grid_map) in query.iter_mut() {
         assert!(grid_map.hexes.len() > 0, "Hexes must be pre initialized");
         let grid_point = grid_map.point(GridMapPoint::TopLeft);
-        let hexes = &mut grid_map.hexes;
-        let mut hex_map = &mut grid_map.hex_map;
 
+        let mut hex_map = HashMap::<AxialCoord, Entity>::default();
         let mut next_point = Vec2::new(grid_point.x, grid_point.y);
-        let mut prev_coord = hexes[0].clone();
+        let mut prev_coord = grid_map.hexes[0].clone();
         let mut prev_row_start_vec2 = Vec2::new(grid_point.x, grid_point.y);
 
-        for coord in hexes {
+        for coord in grid_map.hexes.iter() {
             if *coord == prev_coord {
                 next_point = grid_point;
             } else {
@@ -98,18 +99,10 @@ pub fn spawn_hexes(
                 .id();
 
             hex_map.insert(*coord, entity);
-
             prev_coord = coord.clone();
         }
-    }
-}
 
-pub fn map_hexes(
-    mut hex_grid: Single<&mut HexGrid>,
-    query: Query<(&HexTile, Entity)>,
-) {
-    for (hex_tile, hex_entity) in &query {
-        hex_grid.hex_map.insert(hex_tile.coord, hex_entity);
+        grid_map.hex_map = hex_map;
     }
 }
 
