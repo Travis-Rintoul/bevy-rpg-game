@@ -1,5 +1,5 @@
-mod setup;
 mod cleanup;
+mod setup;
 
-pub use setup::setup;
 pub use cleanup::cleanup;
+pub use setup::setup;

@@ -18,14 +18,14 @@ impl Plugin for SceneManagerPlugin {
         app.insert_state(GameScene::Sandbox)
             .insert_state(GameSceneStatus::Loading)
             .configure_sets(
-                Startup, 
+                Startup,
                 (
                     StartupPhase::SceneLoad,
                     StartupPhase::SpawnHexTiles,
                     StartupPhase::SceneSetup,
                     StartupPhase::PlayerSpawn,
                 )
-                .chain(),
+                    .chain(),
             )
             .add_plugins(SandboxScenePlugin)
             .add_plugins(Location1ScenePlugin)

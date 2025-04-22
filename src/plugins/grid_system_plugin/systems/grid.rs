@@ -3,7 +3,7 @@ use bevy::math::Vec2;
 use std::collections::{BinaryHeap, HashMap};
 use std::f64::consts::PI;
 
-use crate::plugins::grid_system_plugin::models::{Node, HEX_DIRECTIONS};
+use crate::plugins::grid_system_plugin::models::{HEX_DIRECTIONS, Node};
 use crate::plugins::grid_system_plugin::{HEX_GRID_RADIUS, HexDirection, models::AxialCoord};
 
 pub fn calculate_next_point(start_x: f64, start_y: f64, direction: HexDirection) -> Vec2 {
@@ -37,7 +37,7 @@ pub fn calculate_point_path(
 
     let mut came_from = HashMap::new();
     let mut cost_so_far = HashMap::new();
-    
+
     came_from.insert(*start, None);
     cost_so_far.insert(*start, 0);
 

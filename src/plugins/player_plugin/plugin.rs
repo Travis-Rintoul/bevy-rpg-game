@@ -3,7 +3,10 @@ use bevy::prelude::*;
 use super::{
     PlayerMovementStatus, PlayerState,
     structs::PlayerLastClick,
-    systems::{camera_zoom_system, player_attack_dispatcher, player_dialog_event_listener, player_move_dispatcher, player_dialog_dispatcher},
+    systems::{
+        camera_zoom_system, player_attack_dispatcher, player_dialog_dispatcher,
+        player_dialog_event_listener, player_move_dispatcher,
+    },
 };
 
 pub struct PlayerPlugin;

@@ -1,7 +1,8 @@
 use bevy::{ecs::entity::Entity, math::Vec2, prelude::Component, utils::hashbrown::HashMap};
 
 use crate::plugins::grid_system_plugin::{
-    models::{AxialCoord, GridMapPoint}, systems::register_hexes
+    models::{AxialCoord, GridMapPoint},
+    systems::register_hexes,
 };
 
 #[derive(Component)]
