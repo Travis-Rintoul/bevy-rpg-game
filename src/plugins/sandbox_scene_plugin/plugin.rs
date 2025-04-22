@@ -1,9 +1,9 @@
 use crate::{
-    plugins::scene_manager_plugin::enums::{GameScene, GameSceneStatus},
+    plugins::scene_manager_plugin::enums::{GameScene, GameSceneStatus, StartupPhase},
     utils::ground::spawn_ground_system,
 };
 use bevy::{
-    app::{App, Plugin},
+    app::{App, Plugin, Startup},
     ecs::schedule::IntoSystemConfigs,
     state::state::{OnEnter, OnExit},
 };
@@ -14,11 +14,16 @@ pub struct SandboxScenePlugin;
 
 impl Plugin for SandboxScenePlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(
-            OnEnter(GameScene::Sandbox),
-            (spawn_ground_system, setup.after(spawn_ground_system)),
+        app
+        .add_systems(
+            Startup,
+            spawn_ground_system.in_set(StartupPhase::SceneLoad),
         )
-        .add_systems(OnExit(GameScene::Sandbox), cleanup)
-        .add_systems(OnEnter(GameSceneStatus::Ready), reader_method);
+        .add_systems(
+            Startup,
+            setup.in_set(StartupPhase::SceneSetup),
+        );
+        //.add_systems(OnExit(GameScene::Sandbox), cleanup)
+        //.add_systems(OnEnter(GameSceneStatus::Ready), reader_method);
     }
 }

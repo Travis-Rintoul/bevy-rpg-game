@@ -1,4 +1,5 @@
 use bevy::prelude::States;
+use bevy::prelude::SystemSet;
 
 #[derive(States, Debug, Clone, PartialEq, Eq, Hash)]
 pub enum GameScene {
@@ -20,4 +21,13 @@ pub enum GameState {
     InGame,
     InMap,
     InMenu,
+}
+
+#[derive(SystemSet, Clone, Debug, PartialEq, Eq, Hash)]
+pub enum StartupPhase {
+    SceneLoad,
+    ComputeHexGrid,
+    SpawnHexTiles,
+    SceneSetup,
+    PlayerSpawn,
 }
