@@ -12,7 +12,8 @@ pub fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
-    hex_grid_query: Query<&HexGrid>,
+    hex_grid_query: Query<(&HexGrid)>,
+    mut hex_tile_query: Query<(&mut HexTile, &mut Transform)>,
     mut scene_status: ResMut<NextState<GameSceneStatus>>
 ) {
     println!("Sandbox setup...");
@@ -22,46 +23,19 @@ pub fn setup(
 
     scene_status.set(GameSceneStatus::Ready);
 
-    // for (hex_grid) in &hex_grid_query {
-    //     let Some(entity) = hex_grid.hex_map.get(&scene.player_spawn_position) else {
-    //         return;
-    //     };
-    //     println!("X: {:?}", hex_grid.hex_map);
-        
-    // }
+    for (hex_grid) in &hex_grid_query {
+        let Some(entity) = hex_grid.hex_map.get(&scene.player_spawn_position) else {
+            return;
+        };
 
-    // for (hex_grid) in &hex_grid_query {
+        let Ok((mut tile, transform)) = hex_tile_query.get_mut(*entity) else {
+            return;
+        };
 
-    //     println!("AAAA");
+        spawn_player(transform.translation, &mut commands, &mut meshes, &mut materials);
 
-    //     println!("{:?}", hex_grid.hexes);
-
-    //     let Some(entity) = hex_grid.hexes.get(&scene.player_spawn_position) else {
-    //         panic!(
-    //             "AxialPoint: {:?} should have a corresponding HexTile",
-    //             scene.player_spawn_position
-    //         )
-    //     };
-
-    //     println!("BBBBBBBBBB");
-    
-    //     let Ok((_, hex_transform)) = hex_query.get(*entity) else {
-    //         panic!(
-    //             "AxialPoint: {:?} should have a corresponding HexTile",
-    //             scene.player_spawn_position
-    //         )
-    //     };
-
-    //     println!("CCCCC");
-
-    
-    //     spawn_player(
-    //         hex_transform.translation,
-    //         &mut commands,
-    //         &mut meshes,
-    //         &mut materials,
-    //     );
-    // }
+        tile.occupied = true;
+    }
 }
 
 pub fn reader_method() {
