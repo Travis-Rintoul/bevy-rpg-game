@@ -59,7 +59,7 @@ pub fn player_grid_move_event_dispatcher(
     mut actor_move_event_writer: EventWriter<ActorMoveEvent>,
 ) {
     for event in player_move_event_reader.read() {
-        if let Ok(transform) = hex_query.get(event.selected_grid) {
+        if let Some(transform) = hex_query.get(event.to_tile).ok() {
             for (player) in &player_query {
                 actor_move_event_writer.send(ActorMoveEvent {
                     actor: player,

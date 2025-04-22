@@ -1,10 +1,8 @@
-use bevy::{ecs::{entity::Entity, query::Has}, math::Vec2, prelude::Component, utils::{default, hashbrown::HashMap}};
+use bevy::{ecs::entity::Entity, math::Vec2, prelude::Component, utils::hashbrown::HashMap};
 
 use crate::plugins::grid_system_plugin::{
-    models::{AxialCoord, GridMapPoint}, systems::register_hexes, HexDirection
+    models::{AxialCoord, GridMapPoint}, systems::register_hexes
 };
-
-use std::f64::consts::PI;
 
 #[derive(Component)]
 pub struct HexGrid {

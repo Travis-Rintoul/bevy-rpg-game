@@ -1,11 +1,11 @@
 use bevy::{
     ecs::{
         entity::Entity,
-        event::EventWriter,
+        event::{EventReader, EventWriter},
         observer::Trigger,
         system::{Commands, Query, Res, ResMut},
     },
-    input::{ButtonInput, keyboard::KeyCode},
+    input::{keyboard::KeyCode, ButtonInput},
     math::{Quat, Vec2},
     pbr::MeshMaterial3d,
     picking::events::{Click, Out, Over, Pointer},
@@ -95,7 +95,6 @@ pub fn spawn_hexes(
                 .observe(update_material_on::<Pointer<Out>>(
                     hex_tile_assets.material_standard_hex.clone(),
                 ))
-                .observe(on_hex_click)
                 .id();
 
             hex_map.insert(*coord, entity);
@@ -106,21 +105,38 @@ pub fn spawn_hexes(
     }
 }
 
-fn on_hex_click(
-    click: Trigger<Pointer<Click>>,
-    keyboard: Res<ButtonInput<KeyCode>>,
+// fn on_hex_click(
+//     click: Trigger<Pointer<Click>>,
+//     keyboard: Res<ButtonInput<KeyCode>>,
+//     query: Query<&HexTile>,
+//     mut first: ResMut<FirstAxialCoord>,
+//     mut last: ResMut<LastAxialCoord>,
+// ) {
+//     let Ok(hex_tile) = query.get(click.entity()) else {
+//         panic!("Unable to find HexTile that was clicked!");
+//     };
+
+//     if !hex_tile.occupied {
+//         player_move_event_writer.send(PlayerGridMoveEvent {
+//             selected_grid: click.entity(),
+//         });
+//     }
+// }
+
+pub fn hex_tile_click_listener(
     query: Query<&HexTile>,
-    mut first: ResMut<FirstAxialCoord>,
-    mut last: ResMut<LastAxialCoord>,
+    mut click_events: EventReader<Pointer<Click>>,
     mut player_move_event_writer: EventWriter<PlayerGridMoveEvent>,
 ) {
-    let Ok(hex_tile) = query.get(click.entity()) else {
-        panic!("Unable to find HexTile that was clicked!");
-    };
+    for event in click_events.read() {
+        let Ok(hex_tile) = query.get(event.target) else {
+            panic!("Unable to find HexTile that was clicked!");
+        };
 
-    if !hex_tile.occupied {
-        player_move_event_writer.send(PlayerGridMoveEvent {
-            selected_grid: click.entity(),
-        });
+        if !hex_tile.occupied {
+            player_move_event_writer.send(PlayerGridMoveEvent {
+                to_tile: event.target,
+            });
+        }
     }
 }

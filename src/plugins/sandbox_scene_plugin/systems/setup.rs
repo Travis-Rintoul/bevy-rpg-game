@@ -1,9 +1,19 @@
 use bevy::{
-    app::Plugin, asset::Assets, ecs::system::{Commands, Query, Res, ResMut}, pbr::StandardMaterial, render::mesh::Mesh, state::state::NextState, transform::components::Transform
+    app::Plugin,
+    asset::Assets,
+    ecs::system::{Commands, Query, Res, ResMut},
+    pbr::StandardMaterial,
+    render::mesh::Mesh,
+    state::state::NextState,
+    transform::components::Transform,
 };
 
 use crate::{
-    plugins::{grid_system_plugin::components::{HexGrid, HexTile}, location1_scene_plugin::Location1Scene, scene_manager_plugin::enums::GameSceneStatus},
+    plugins::{
+        grid_system_plugin::components::{HexGrid, HexTile},
+        location1_scene_plugin::Location1Scene,
+        scene_manager_plugin::enums::GameSceneStatus,
+    },
     utils::{camera::setup_lights_and_cameras, player::spawn_player},
 };
 
@@ -14,12 +24,11 @@ pub fn setup(
     mut materials: ResMut<Assets<StandardMaterial>>,
     hex_grid_query: Query<(&HexGrid)>,
     mut hex_tile_query: Query<(&mut HexTile, &mut Transform)>,
-    mut scene_status: ResMut<NextState<GameSceneStatus>>
+    mut scene_status: ResMut<NextState<GameSceneStatus>>,
 ) {
     println!("Sandbox setup...");
 
     setup_lights_and_cameras(&mut commands);
-    println!("GGGGG");
 
     scene_status.set(GameSceneStatus::Ready);
 
@@ -32,12 +41,16 @@ pub fn setup(
             return;
         };
 
-        spawn_player(transform.translation, &mut commands, &mut meshes, &mut materials);
+        spawn_player(
+            transform.translation,
+            tile.coord,
+            &mut commands,
+            &mut meshes,
+            &mut materials,
+        );
 
         tile.occupied = true;
     }
 }
 
-pub fn reader_method() {
-
-}
+pub fn reader_method() {}

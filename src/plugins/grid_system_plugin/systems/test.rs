@@ -3,10 +3,9 @@ use bevy::{
     input::{ButtonInput, keyboard::KeyCode},
 };
 
-use crate::plugins::grid_system_plugin::{models::AxialCoord, LastAxialCoord};
+use crate::plugins::grid_system_plugin::{models::AxialCoord, systems::grid::calculate_point_path, LastAxialCoord};
 use crate::plugins::grid_system_plugin::{FirstAxialCoord, components::HexTile};
 use crate::plugins::grid_system_plugin::systems::grid::calculate_point_distance;
-use crate::plugins::grid_system_plugin::systems::grid::calculate_point_path;
 
 pub fn test_emitter(
     keyboard: Res<ButtonInput<KeyCode>>,

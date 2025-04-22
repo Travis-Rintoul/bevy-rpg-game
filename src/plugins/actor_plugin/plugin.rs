@@ -2,8 +2,7 @@ use bevy::app::{App, Plugin, Update};
 
 use super::{
     events::{
-        ActorAttackEvent, ActorDeathEvent, ActorDialogInitiatedEvent, ActorHitEvent,
-        ActorMissEvent, ActorMoveEvent,
+        ActorAttackEvent, ActorDeathEvent, ActorDialogInitiatedEvent, ActorGridMoveEvent, ActorHitEvent, ActorMissEvent, ActorMoveEvent
     },
     systems::{
         attack_event_listener, death_event_listener, hit_event_listener, miss_event_listener,
@@ -21,6 +20,7 @@ impl Plugin for ActorPlugin {
             .add_event::<ActorHitEvent>()
             .add_event::<ActorDeathEvent>()
             .add_event::<ActorDialogInitiatedEvent>()
+            .add_event::<ActorGridMoveEvent>()
             .add_systems(Update, move_event_listener)
             .add_systems(Update, perform_move_event)
             .add_systems(Update, attack_event_listener)

@@ -23,16 +23,6 @@ pub fn calculate_point_distance(a: &AxialCoord, b: &AxialCoord) -> i32 {
     (dq + dr + ds) / 2
 }
 
-pub fn hex_grid_neighbors(hex: &AxialCoord) -> Vec<AxialCoord> {
-    HEX_DIRECTIONS
-        .iter()
-        .map(|(dq, dr)| AxialCoord {
-            q: hex.q + dq,
-            r: hex.r + dr,
-        })
-        .collect()
-}
-
 pub fn calculate_point_path(
     start: &AxialCoord,
     goal: &AxialCoord,
@@ -88,4 +78,14 @@ pub fn calculate_point_path(
     }
 
     None
+}
+
+pub fn hex_grid_neighbors(hex: &AxialCoord) -> Vec<AxialCoord> {
+    HEX_DIRECTIONS
+        .iter()
+        .map(|(dq, dr)| AxialCoord {
+            q: hex.q + dq,
+            r: hex.r + dr,
+        })
+        .collect()
 }
