@@ -1,11 +1,8 @@
-use bevy::{
-    ecs::{
-        entity::Entity,
-        event::{EventReader, EventWriter},
-        query::With,
-        system::{Query, Res, ResMut},
-    },
-    time::Time,
+use bevy::ecs::{
+    entity::Entity,
+    event::{EventReader, EventWriter},
+    query::With,
+    system::Query,
 };
 
 use crate::{
@@ -13,25 +10,11 @@ use crate::{
     plugins::{
         actor_plugin::{
             components::ActorHexCoord,
-            events::{
-                ActorAttackEvent, ActorDialogInitiatedEvent, ActorGridMoveEvent, PlayerAttackEvent,
-                PlayerDialogInitiatedEvent, PlayerGridMoveEvent,
-            },
+            events::{ActorAttackEvent, ActorDialogInitiatedEvent, ActorGridMoveEvent, PlayerAttackEvent, PlayerDialogInitiatedEvent, PlayerGridMoveEvent},
         },
         grid_system_plugin::components::HexGrid,
-        player_plugin::structs::PlayerLastClick,
     },
 };
-
-#[allow(dead_code)] // TODO: reimplement
-pub fn handle_debounce(time: &Res<Time>, last_click_time: &mut ResMut<PlayerLastClick>) -> bool {
-    let current_time = time.elapsed_secs();
-    if current_time - last_click_time.0 < 0.2 {
-        return true;
-    }
-    last_click_time.0 = current_time;
-    false
-}
 
 pub fn player_move_dispatcher(
     player_query: Query<(Entity, &ActorHexCoord), With<Player>>,

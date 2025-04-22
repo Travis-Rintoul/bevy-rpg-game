@@ -1,23 +1,12 @@
 use bevy::ecs::entity::Entity;
 use bevy::prelude::Event;
 
-// #[derive(Event, Debug, Clone)]
-// pub struct ActorMoveEvent {
-//     pub(crate) actor: Entity,
-//     pub(crate) point: Vec3,
-// }
-
 #[derive(Event, Debug, Clone)]
 pub struct ActorGridMoveEvent {
     pub(crate) actor: Entity,
     pub(crate) from_tile: Entity,
     pub(crate) to_tile: Entity,
 }
-
-// #[derive(Event, Debug, Clone)]
-// pub struct PlayerMoveEvent {
-//     pub(crate) point: Vec3,
-// }
 
 #[derive(Event, Debug, Clone)]
 pub struct PlayerGridMoveEvent {
