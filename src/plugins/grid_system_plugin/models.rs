@@ -1,14 +1,9 @@
-use bevy::{
-    asset::Handle,
-    ecs::entity::Entity,
-    pbr::StandardMaterial,
-    prelude::Resource,
-    render::mesh::Mesh,
-};
+use bevy::{asset::Handle, pbr::StandardMaterial, prelude::Resource, render::mesh::Mesh};
 use std::cmp::Ordering;
 
 use super::systems::grid::calculate_point_distance;
 
+#[allow(dead_code)]
 pub enum HexDirection {
     Bottom = 0,
     BottomLeft = 1,
@@ -17,6 +12,8 @@ pub enum HexDirection {
     TopRight = 4,
     BottomRight = 5,
 }
+
+#[allow(dead_code)]
 pub enum GridMapPoint {
     TopLeft,
     TopRight,
@@ -35,12 +32,6 @@ impl AxialCoord {
         calculate_point_distance(self, other)
     }
 }
-
-#[derive(Resource)]
-pub struct FirstAxialCoord(pub Option<Entity>);
-
-#[derive(Resource)]
-pub struct LastAxialCoord(pub Option<Entity>);
 
 #[derive(Resource)]
 pub struct HexTileAssets {

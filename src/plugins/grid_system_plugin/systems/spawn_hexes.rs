@@ -2,10 +2,8 @@ use bevy::{
     ecs::{
         entity::Entity,
         event::{EventReader, EventWriter},
-        observer::Trigger,
-        system::{Commands, Query, Res, ResMut},
+        system::{Commands, Query, Res},
     },
-    input::{keyboard::KeyCode, ButtonInput},
     math::{Quat, Vec2},
     pbr::MeshMaterial3d,
     picking::events::{Click, Out, Over, Pointer},
@@ -18,8 +16,7 @@ use crate::{
     plugins::{
         actor_plugin::events::PlayerGridMoveEvent,
         grid_system_plugin::{
-            AxialCoord, FirstAxialCoord, HexDirection, LastAxialCoord, TEMP_HEX_GRID_HEIGHT,
-            TEMP_HEX_GRID_WIDTH,
+            AxialCoord, HexDirection, TEMP_HEX_GRID_HEIGHT, TEMP_HEX_GRID_WIDTH,
             components::{HexGrid, HexTile},
             models::{GridMapPoint, HexTileAssets},
         },
@@ -27,7 +24,7 @@ use crate::{
     utils::material::update_material_on,
 };
 
-use super::grid::{calculate_next_point, hex_grid_neighbors};
+use super::grid::calculate_next_point;
 
 pub fn register_hexes() -> Vec<AxialCoord> {
     let mut hexes: Vec<AxialCoord> = default();
@@ -44,7 +41,7 @@ pub fn spawn_hexes(
     mut commands: Commands,
     hex_tile_assets: Res<HexTileAssets>,
 ) {
-    for (mut grid_map) in query.iter_mut() {
+    for mut grid_map in query.iter_mut() {
         assert!(grid_map.hexes.len() > 0, "Hexes must be pre initialized");
         let grid_point = grid_map.point(GridMapPoint::TopLeft);
 

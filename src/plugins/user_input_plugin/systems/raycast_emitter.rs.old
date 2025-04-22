@@ -38,12 +38,11 @@ pub fn mouse_raycast_emitter(
         return;
     };
 
-    if let Some((hit_entity, hit)) = ray_cast.cast_ray(ray, &RayCastSettings::default()).first() {
+    if let Some((hit_entity, _)) = ray_cast.cast_ray(ray, &RayCastSettings::default()).first() {
         raycast_hit_event_writer.send(RayCastHitEvent {
             hit_entity: *hit_entity,
             left_click: mouse.pressed(MouseButton::Left),
             right_click: mouse.pressed(MouseButton::Right),
-            point: hit.point,
         });
     }
 }

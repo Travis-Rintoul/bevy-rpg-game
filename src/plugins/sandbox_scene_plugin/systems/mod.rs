@@ -1,5 +1,4 @@
-mod setup;
 mod cleanup;
+mod setup;
 
-pub use setup::{setup, reader_method};
-pub use cleanup::cleanup;
+pub use setup::setup;

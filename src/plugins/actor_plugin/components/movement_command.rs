@@ -7,9 +7,3 @@ pub struct ActorHexMovementCommand {
     pub path: Vec<AxialCoord>,
     pub current_step: usize,
 }
-
-#[derive(Component)]
-pub struct ActorFreeMovementCommand {
-    pub path: Vec<AxialCoord>,
-    pub current_step: u32,
-}

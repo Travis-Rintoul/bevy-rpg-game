@@ -14,9 +14,8 @@ use crate::{
         actor_plugin::{
             components::ActorHexCoord,
             events::{
-                ActorAttackEvent, ActorDialogInitiatedEvent, ActorGridMoveEvent, ActorMoveEvent,
-                PlayerAttackEvent, PlayerDialogInitiatedEvent, PlayerGridMoveEvent,
-                PlayerMoveEvent,
+                ActorAttackEvent, ActorDialogInitiatedEvent, ActorGridMoveEvent, PlayerAttackEvent,
+                PlayerDialogInitiatedEvent, PlayerGridMoveEvent,
             },
         },
         grid_system_plugin::components::HexGrid,

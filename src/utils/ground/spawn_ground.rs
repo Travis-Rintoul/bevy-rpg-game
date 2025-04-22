@@ -2,7 +2,7 @@ use bevy::{
     asset::Assets,
     color::Color,
     ecs::system::{Commands, ResMut},
-    math::{Vec3, primitives::Plane3d},
+    math::primitives::Plane3d,
     pbr::{MeshMaterial3d, StandardMaterial},
     prelude::Meshable,
     render::mesh::{Mesh, Mesh3d},
@@ -25,7 +25,6 @@ pub fn spawn_ground(
 ) {
     let width = 20;
     let height = 20;
-    let position = Vec3::new(0.0, 0.0, 0.0);
 
     // Plane
     commands.spawn((
@@ -33,5 +32,4 @@ pub fn spawn_ground(
         MeshMaterial3d(materials.add(Color::srgb(0.3, 0.5, 0.3))),
         HexGrid::new(width, height),
     ));
-
 }

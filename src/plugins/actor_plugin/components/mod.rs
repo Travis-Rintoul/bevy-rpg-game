@@ -2,18 +2,21 @@ mod actor;
 mod actor_abilities;
 mod actor_coord;
 mod actor_health;
-mod actor_move_target;
 mod actor_perks;
 mod actor_skills;
 mod actor_stats;
 mod movement_command;
 
 pub use actor::Actor;
+#[allow(unused_imports)] // TODO: remove
 pub use actor_abilities::ActorAbilities;
 pub use actor_coord::ActorHexCoord;
 pub use actor_health::ActorHealth;
-pub use actor_move_target::ActorMoveTarget;
+#[allow(unused_imports)] // TODO: remove
 pub use actor_perks::ActorPerks;
+#[allow(unused_imports)] // TODO: remove
 pub use actor_skills::ActorSkills;
+#[allow(unused_imports)] // TODO: remove
 pub use actor_stats::ActorStats;
-pub use movement_command::{ActorFreeMovementCommand, ActorHexMovementCommand};
+#[allow(unused_imports)] // TODO: remove
+pub use movement_command::ActorHexMovementCommand;

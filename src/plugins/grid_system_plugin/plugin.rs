@@ -5,19 +5,14 @@ use bevy::{
 
 use crate::plugins::scene_manager_plugin::enums::StartupPhase;
 
-use super::{
-    models::FirstAxialCoord, systems::{hex_tile_click_listener, setup_assets, spawn_hexes, test_emitter}, LastAxialCoord
-};
+use super::systems::{hex_tile_click_listener, setup_assets, spawn_hexes};
 
 pub struct GridSystemPlugin;
 
 impl Plugin for GridSystemPlugin {
     fn build(&self, app: &mut App) {
-        app.insert_resource(FirstAxialCoord(None))
-            .insert_resource(LastAxialCoord(None))
-            .add_systems(Startup, setup_assets.in_set(StartupPhase::SceneLoad))
+        app.add_systems(Startup, setup_assets.in_set(StartupPhase::SceneLoad))
             .add_systems(Startup, spawn_hexes.in_set(StartupPhase::SpawnHexTiles))
-            .add_systems(Update, test_emitter.in_set(StartupPhase::SceneSetup))
             .add_systems(Update, hex_tile_click_listener);
     }
 }

@@ -14,7 +14,6 @@ pub enum GameSceneStatus {
     Ready,
 }
 
-
 #[allow(dead_code)] // TODO remove dead_code
 #[derive(States, Debug, Clone, PartialEq, Eq, Hash)]
 pub enum GameState {
@@ -23,6 +22,7 @@ pub enum GameState {
     InMenu,
 }
 
+#[allow(dead_code)] // TODO: remove
 #[derive(SystemSet, Clone, Debug, PartialEq, Eq, Hash)]
 pub enum StartupPhase {
     SceneLoad,

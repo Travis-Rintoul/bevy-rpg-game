@@ -1,14 +1,11 @@
 use bevy::ecs::entity::Entity;
 use bevy::prelude::Event;
-use bevy::prelude::Vec3;
 
-use crate::plugins::grid_system_plugin::AxialCoord;
-
-#[derive(Event, Debug, Clone)]
-pub struct ActorMoveEvent {
-    pub(crate) actor: Entity,
-    pub(crate) point: Vec3,
-}
+// #[derive(Event, Debug, Clone)]
+// pub struct ActorMoveEvent {
+//     pub(crate) actor: Entity,
+//     pub(crate) point: Vec3,
+// }
 
 #[derive(Event, Debug, Clone)]
 pub struct ActorGridMoveEvent {
@@ -17,10 +14,10 @@ pub struct ActorGridMoveEvent {
     pub(crate) to_tile: Entity,
 }
 
-#[derive(Event, Debug, Clone)]
-pub struct PlayerMoveEvent {
-    pub(crate) point: Vec3,
-}
+// #[derive(Event, Debug, Clone)]
+// pub struct PlayerMoveEvent {
+//     pub(crate) point: Vec3,
+// }
 
 #[derive(Event, Debug, Clone)]
 pub struct PlayerGridMoveEvent {
